@@ -19,6 +19,10 @@ class ReferenceDataListConverter(converter.BaseDataConverter):
         elif isinstance(value, unicode):
             return [self.widget.context.unrestrictedTraverse(
                 value.encode("utf8"))]
+
+        elif isinstance(value, basestring):
+            return [self.widget.context.unrestrictedTraverse(value)]
+
         else:
             result = []
             for item in value:
@@ -45,6 +49,10 @@ class ReferenceDataChoiceConverter(converter.BaseDataConverter):
         elif isinstance(value, unicode):
             return self.widget.context.unrestrictedTraverse(
                 value.encode("utf8"))
+
+        elif isinstance(value, basestring):
+            return self.widget.context.unrestrictedTraverse(value)
+
         else:
             return self.widget.context.unrestrictedTraverse(
                 value[0].encode("utf-8"))
