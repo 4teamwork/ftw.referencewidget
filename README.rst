@@ -15,7 +15,7 @@ The widget takes the following parameters:
  - start: The path first opened. Can either be a callable or a path. Additionaly the strings "parent", "navroot", "ploneroot" can be used.
  - allow_nonsearched_types: If this is set to true all the types will be traversable and selectable.
  - override: drops all global config and the base query if a list is passed to the widget. All types need to be added to be selectable.
-
+- traversal_query: Updates the query used vor traversing by the given dict. The dict passed will be updated after everything is allready done. So make sure not to override sort_on/sort_order attributes.
 
 ContextSourceBinder
 -------------------
@@ -33,7 +33,7 @@ The default_filter implementation therefore looks like this:
         """"
         Return ``True`` when the object is selectable, ``False``
         when it is not selectable.
-        
+
         """"
         return value.portal_type in get_selectable_types_by_source(source)
 

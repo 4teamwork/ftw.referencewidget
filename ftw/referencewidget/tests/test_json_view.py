@@ -7,6 +7,7 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from Products.ATContentTypes.interfaces.folder import IATFolder
 from unittest2 import TestCase
 import json
 
@@ -58,3 +59,16 @@ class TestJsonView(TestCase):
         result = result['items']
         self.assertFalse(result[0]['selectable'])
         self.assertTrue(result[1]['selectable'])
+
+    def test_additional_traversable_query_is_applied(self):
+        form = TestView(self.portal, self.portal.REQUEST)
+        form.update()
+        widget = form.form_instance.widgets['relation']
+
+        widget.traversal_query = {
+            'object_provides': [IATFolder.__identifier__]}
+        result = json.loads(ReferenceJsonEndpoint(
+            widget, widget.request)())['items']
+
+        self.assertEquals(1, len(result), 'Exepct only one item')
+        self.assertEquals('/plone/folder', result[0]['path'])

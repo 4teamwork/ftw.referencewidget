@@ -68,6 +68,7 @@ class ReferenceJsonEndpoint(BrowserView):
                               'depth': 1},
                      'is_folderish': True
                      }
+            query.update(widget.traversal_query)
 
             results_folderish = catalog(query)
 
@@ -76,6 +77,7 @@ class ReferenceJsonEndpoint(BrowserView):
                               'depth': 1},
                      'is_folderish': False
                      }
+            query.update(widget.traversal_query)
 
             results_content = catalog(query)
 
@@ -86,6 +88,7 @@ class ReferenceJsonEndpoint(BrowserView):
                               'depth': 1},
                      'is_folderish': True
                      }
+            query.update(widget.traversal_query)
 
             results_folder_select = catalog(query)
             results = results_folderish + results_content + results_folder_select
@@ -96,6 +99,7 @@ class ReferenceJsonEndpoint(BrowserView):
                               'depth': 1},
                      }
             query.update(sort_query)
+            query.update(widget.traversal_query)
             results = catalog(query)
 
         return results

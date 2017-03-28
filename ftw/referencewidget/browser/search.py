@@ -31,6 +31,8 @@ class SearchView(BrowserView):
                  'sort_on': self.request.get('sort_on',
                                              u'modified').encode('utf-8')}
 
+        query.update(self.context.traversal_query)
+
         catalog = getToolByName(self.context.context, 'portal_catalog')
         results = catalog(query)
         results, batch_html = extend_with_batching(self.context, results)

@@ -33,6 +33,8 @@ class ReferenceBrowserWidget(widget.HTMLTextInputWidget, Widget):
     start = None
     override = None
 
+    traversal_query = None
+
     # Handlebar templates should not be rendered with a page templating engine,
     # because 1) <script> tags are not rendered by the zope.pagetemplate
     # implementation and 2) chameleon has troubles with handlebars.
@@ -48,7 +50,8 @@ class ReferenceBrowserWidget(widget.HTMLTextInputWidget, Widget):
                  nonselectable=[],
                  start='',
                  override=False,
-                 allow_nonsearched_types=False,):
+                 allow_nonsearched_types=False,
+                 traversal_query={}):
         self.request = request
         self.block_traversal = block_traversal
         self.allow_traversal = allow_traversal
@@ -57,6 +60,7 @@ class ReferenceBrowserWidget(widget.HTMLTextInputWidget, Widget):
         self.start = start
         self.override = override
         self.allow_nonsearched_types = allow_nonsearched_types
+        self.traversal_query = traversal_query
 
     def update(self):
         super(ReferenceBrowserWidget, self).update()
@@ -142,7 +146,8 @@ def ReferenceWidgetFactory(field,
                            nonselectable=[],
                            start='',
                            override=False,
-                           allow_nonsearched_types=False):
+                           allow_nonsearched_types=False,
+                           traversal_query={}):
     """IFieldWidget factory for DateTimePickerWidget."""
     return FieldWidget(field, ReferenceBrowserWidget(request,
                                                      block_traversal,
@@ -151,4 +156,5 @@ def ReferenceWidgetFactory(field,
                                                      nonselectable,
                                                      start,
                                                      override,
-                                                     allow_nonsearched_types))
+                                                     allow_nonsearched_types,
+                                                     traversal_query))
