@@ -157,3 +157,14 @@ li.ref_list_entry.traversable:hover a {
   display: inline-block;
   margin: 0 .5em;
 }
+
+.refbrowser .path span[class^="state"]::before,
+.ref_list_entry span[class^="state"]::before {
+  content: "(";
+  display:  inline;
+}
+.refbrowser .path span[class^="state"]::after,
+.ref_list_entry span[class^="state"]::after {
+  content: ")";
+  display:  inline;
+}
