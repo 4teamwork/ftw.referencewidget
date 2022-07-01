@@ -179,7 +179,10 @@
       $.post(widget.widget_url +"/generate_pathbar", {"origin": path}, function(data){
         var hb_template = Handlebars.compile($("#node-template", widget.field).html());
         var pathbar = "";
-        data.forEach(function(item){
+        data.forEach(function(item, index){
+          if (index != data.length - 1) {
+            delete item['workflow-state'];
+          }
           pathbar += hb_template(item);
         });
         $(".path").html(pathbar);

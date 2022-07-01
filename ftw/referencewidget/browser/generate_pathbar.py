@@ -1,11 +1,12 @@
 from Acquisition import aq_parent
+from collective.z3cform.datagridfield.datagridfield import DataGridFieldObjectSubForm
+from ftw.referencewidget.browser.utils import get_root_path_from_source
+from ftw.referencewidget.browser.utils import get_translated_review_state
+from ftw.referencewidget.widget import ReferenceBrowserWidget
+from plone.portlets.interfaces import IPortletAssignment
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five import BrowserView
-from collective.z3cform.datagridfield.datagridfield import DataGridFieldObjectSubForm
-from ftw.referencewidget.browser.utils import get_root_path_from_source
-from ftw.referencewidget.widget import ReferenceBrowserWidget
-from plone.portlets.interfaces import IPortletAssignment
 import json
 
 
@@ -43,9 +44,15 @@ class GeneratePathbar(BrowserView):
         while True:
             clickable = mtool.checkPermission('View', obj)
             path = '/'.join(obj.getPhysicalPath())
-            results.insert(0, {'title': obj.Title(),
-                               'path': path,
-                               'clickable': bool(clickable)})
+
+            obj_dict = {'title': obj.Title(),
+                        'path': path,
+                        'clickable': bool(clickable),
+                        'workflow-state': ''}
+            review_state = get_translated_review_state(obj)
+            if review_state:
+                obj_dict['workflow-state'] = review_state
+            results.insert(0, obj_dict)
 
             if root_path and root_path == path:
                 break
