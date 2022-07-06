@@ -3,6 +3,7 @@ from ftw.referencewidget.browser.utils import extend_with_batching
 from ftw.referencewidget.browser.utils import get_selectable_types
 from ftw.referencewidget.browser.utils import get_sort_options
 from ftw.referencewidget.browser.utils import get_sort_order_options
+from ftw.referencewidget.browser.utils import get_translated_review_state
 from ftw.referencewidget.browser.utils import get_traversal_types
 from ftw.referencewidget.browser.utils import is_traversable
 from ftw.referencewidget.widget import ReferenceBrowserWidget
@@ -64,7 +65,12 @@ class ReferenceJsonEndpoint(BrowserView):
                         'folderish': item.is_folderish,
                         'traversable': is_traversable(widget, item),
                         'selectable': item.portal_type in selectable_types,
-                        'content-type': 'contenttype-' + contenttype}
+                        'content-type': 'contenttype-' + contenttype,
+                        'workflow-state': '',
+                        }
+            review_state = get_translated_review_state(item)
+            if review_state:
+                obj_dict['workflow-state'] = review_state
 
             result['items'].append(obj_dict)
 

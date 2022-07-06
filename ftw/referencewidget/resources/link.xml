@@ -56,13 +56,13 @@
             </script>
 
             <script id="node-template" type="text/x-handlebars-template">
-                <a data-path="{{path}}" href="#" data-clickable={{clickable}}>{{title}}</a>
+                <a data-path="{{path}}" href="#" data-clickable={{clickable}}>{{title}} {{{workflow-state}}}</a>
             </script>
 
             <script id="listing-template" type="text/x-handlebars-template">
                 <li class="ref_list_entry {{addclass}}" data-traversable="{{traversable}}" data-path="{{path}}" data-id="{{id}}">
                     {{{checkbox}}}
-                    <{{{tag}}} class="{{content-type}}" {{{extras}}}> {{title}} </{{{tag}}}>
+                    <{{{tag}}} class="{{content-type}}" {{{extras}}}> {{title}} {{{workflow-state}}}</{{{tag}}}>
                 </li>
             </script>
 

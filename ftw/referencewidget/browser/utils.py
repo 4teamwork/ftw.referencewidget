@@ -3,10 +3,12 @@ from ftw.referencewidget import _
 from ftw.referencewidget.browser.refbrowser_batching import RefBrowserBatchView
 from ftw.referencewidget.interfaces import IReferenceSettings
 from ftw.referencewidget.utils import get_types_not_searched
+from plone import api
 from plone.api import portal
 from plone.batching import Batch
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.ZCatalog.interfaces import ICatalogBrain
 from z3c.relationfield.schema import RelationChoice
 from z3c.relationfield.schema import RelationList
 from zope.component import getUtility
@@ -172,3 +174,20 @@ def get_root_path_from_source(widget):
 
     else:
         return None
+
+
+def get_translated_review_state(obj):
+    if ICatalogBrain.providedBy(obj):
+        review_state = obj.review_state
+    else:
+        wftool = api.portal.get_tool('portal_workflow')
+        review_state = wftool.getInfoFor(obj, 'review_state', default=None)
+
+    if not review_state:
+        return ''
+
+    translated_state_title = translate(review_state, context=obj.REQUEST, domain='plone')
+    return u'<span class="state-{}">{}</span>'.format(
+        review_state,
+        translated_state_title
+    )
