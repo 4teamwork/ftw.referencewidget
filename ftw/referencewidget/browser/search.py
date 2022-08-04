@@ -45,10 +45,8 @@ class SearchView(BrowserView):
         if not uid:
             query = {'portal_type': search_types,
                      'Title': search_term,
-                     'sort_order': self.request.get('sort_order',
-                                                    u'ascending').encode('utf-8'),
-                     'sort_on': self.request.get('sort_on',
-                                                 u'modified').encode('utf-8')}
+                     'sort_order': self.request.get('sort_order') or u'ascending',
+                     'sort_on': self.request.get('sort_on') or u'modified'}
             if only_current_path and request_path:
                 query['path'] = request_path
 

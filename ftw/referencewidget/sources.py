@@ -3,15 +3,15 @@ from ftw.referencewidget.selectable import ISelectable
 from plone import api
 from Products.CMFCore.interfaces import IContentish
 from zope.component.hooks import getSite
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface.verify import verifyClass
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.interfaces import ISource
 
 
+@implementer(ISource)
 class ReferenceObjPathSource(object):
 
-    implements(ISource)
 
     def __init__(self, context, selectable_class, selectable, nonselectable,
                  override, allow_nonsearched_types, root_path):
@@ -38,8 +38,8 @@ class ReferenceObjPathSource(object):
             raise TypeError('Not a ISelectable class provided')
 
 
+@implementer(IContextSourceBinder)
 class ReferenceObjSourceBinder(object):
-    implements(IContextSourceBinder)
 
     def __init__(self,
                  selectable_class=None,

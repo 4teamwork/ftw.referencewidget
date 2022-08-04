@@ -8,6 +8,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five import BrowserView
 import json
+import sys
+
+if sys.version_info.major == 3:
+    unicode = bytes
 
 
 class GeneratePathbar(BrowserView):

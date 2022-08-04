@@ -16,15 +16,15 @@ from zope.component import adapter
 from zope.component import queryUtility
 from zope.i18n import translate
 from zope.interface import implementer
-from zope.interface import implementsOnly
+from zope.interface import implementer_only
 from zope.schema.interfaces import IList
 import json
 import os
 
 
+@implementer_only(IReferenceWidget)
 class ReferenceBrowserWidget(widget.HTMLTextInputWidget, Widget):
     """ Datepicker widget. """
-    implementsOnly(IReferenceWidget)
 
     klass = u'reference-widget'
     request = None

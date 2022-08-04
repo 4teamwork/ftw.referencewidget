@@ -1,5 +1,5 @@
 from ftw.referencewidget.browser.utils import get_selectable_types_by_source
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import Interface
 
 
@@ -16,8 +16,8 @@ class ISelectable(Interface):
         """
 
 
+@implementer(ISelectable)
 class DefaultSelectable(object):
-    implements(ISelectable)
 
     def __init__(self, source, content):
         self.source = source
