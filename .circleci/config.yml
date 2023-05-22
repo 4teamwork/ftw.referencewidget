@@ -4,13 +4,13 @@ version: 2.1
 workflows:
   tests:
     jobs:
-      - plone6py39
+      - plone6py311
 
 jobs:
-  plone6py39:
+  plone6py311:
     resource_class: medium
     docker:
-      - image: webcloud7/plone-test:6.0.0b1
+      - image: webcloud7/plone-test:6.0.3
     environment:
       PIP_FIND_LINKS: /wheelhouse/
     steps:
